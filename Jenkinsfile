@@ -4,9 +4,8 @@ node {
    
     stage 'promotion'
         def userInput = input(
-         id: 'userInput', message: 'Let\'s promote?', parameters: [
-         [$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env'],
-         [$class: 'TextParameterDefinition', defaultValue: 'uat1', description: 'Target', name: 'target']
+         id: 'userInput', message: 'Deployment type : Canary or 100% switch', parameters: [
+         [$class: 'ChoiceParameterDefinition', choices: 'uat , dev , prod']
         ])
     echo ("Env: "+userInput['env'])
     echo ("Target: "+userInput['target'])
