@@ -1,21 +1,42 @@
 node {
     
 
- stage 'promotion'
+    def userInput = "Blue-Green"
 
-        def userInput = input(
-        id: 'userInput', message: 'input parameters', parameters: [
-            [
-                $class: 'ChoiceParameterDefinition',
-                name: 'ami',
-                choices: '1\n2\n3',
-                description: 'AMI',
-            ],
-        ]
-    )
+    timeout(time: 15, unit: 'SECONDS') {
 
-    echo ("Selected AMI :: "+userInput)
+        userInput = input(
+            id: 'userInput', message: 'input parameters', parameters: [
+                [
+                    $class: 'ChoiceParameterDefinition',
+                    name: 'ami',
+                    choices: 'Canary\nBlue-Green',
+                    description: 'Select one : Default is blue-green',
+                ],
+            ]
+        )
+    }
+
+    stage('Deploy Application') {
+
+    
+        if(userInput == 'Canary') {
+
+            echo "Inside canary"
+
+        } else if(userInput == 'Blue-green') {
+
+            echo "Inside blue green"
+        }
 
 
+    }
 
+    stage('Deleting old deployments') {
+        
+        if(userInput == 'Blue-green') {
+            echo "deleting blue-green"
+        }      
+      
+    }
 }
