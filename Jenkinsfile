@@ -4,8 +4,10 @@ node {
    
     stage('Deploy Application') {
 
-    def deploymentType = input(message: 'New deployment type Canary or 100% traffic switch [Default - Canary]', ok: 'Switch 100%', 
-                        parameters: [booleanParam(defaultValue: canary, 
+ 
+def doesJavaRock = input(message: 'Do you like Java?', ok: 'Yes', 
+                        parameters: [booleanParam(defaultValue: true, 
                         description: 'If you like Java, just push the button',name: 'Yes?')])
-    }
+
+echo "Java rocks?:" + doesJavaRock
 }
