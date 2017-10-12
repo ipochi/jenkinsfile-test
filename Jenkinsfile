@@ -3,19 +3,28 @@ node {
 
     def userInput = "Blue-Green"
 
-    timeout(time: 15, unit: 'SECONDS') {
+    try {
+        timeout(time: 20, unit: 'SECONDS') {
 
-        userInput = input(
-            id: 'userInput', message: 'input parameters', parameters: [
-                [
-                    $class: 'ChoiceParameterDefinition',
-                    name: 'ami',
-                    choices: 'Canary\nBlue-Green',
-                    description: 'Select one : Default is blue-green',
-                ],
-            ]
-        )
+            userInput = input(
+                id: 'userInput', message: 'input parameters', parameters: [
+                    [
+                        $class: 'ChoiceParameterDefinition',
+                        name: 'ami',
+                        choices: 'Blue-Green\nCanary',
+                        description: 'Select one : Default is blue-green',
+                    ],
+                ]
+            )
+        }
+    } catch(err) { // timeout reached or input false
+        def user = err.getCauses()[0].getUser()
+        if('SYSTEM' == user.toString()) { // SYSTEM means timeout.
+            userInput = "Blue-Green";
+    } else {
+        echo "Aborted by: [${user}]"
     }
+}
 
     stage('Deploy Application') {
 
