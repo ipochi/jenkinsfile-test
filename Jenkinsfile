@@ -34,7 +34,7 @@ echo "USER INPUT --- " + userInput
 
             echo "Inside canary"
 
-        } else if(userInput == 'Blue-green') {
+        } else if(userInput == 'Blue-Green') {
 
             echo "Inside blue green"
         }
@@ -44,7 +44,7 @@ echo "USER INPUT --- " + userInput
 
     stage('Deleting old deployments') {
         
-        if(userInput == 'Blue-green') {
+        if(userInput == 'Blue-Green') {
             echo "deleting blue-green"
         }      
       
