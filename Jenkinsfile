@@ -25,7 +25,8 @@ node {
         echo "Aborted by: [${user}]"
     }
 }
-
+echo "USER INPUT --- " + userInput
+    
     stage('Deploy Application') {
 
     
